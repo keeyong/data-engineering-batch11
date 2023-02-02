@@ -1,33 +1,28 @@
-# Airflow 2.0 Installation:
+# Airflow 2.5.1 Installation:
 
-우분투에서 Airflow 2.0을 설치하는 방법에 대한 문서로 파이썬 3.0을 사용한다. 앞서 별도로 공유된 ssh 로그인 문서를 참조하여 할당된 EC2 서버로 로그인한다 (이 때 ubuntu 계정을 사용함).
+- 우분투 20.04에서 Airflow 2.5.1을 설치하는 방법에 대한 문서로 파이썬 3.8을 사용한다
+- 앞서 별도로 공유된 ssh 로그인 문서를 참조하여 할당된 EC2 서버로 로그인한다 (이 때 ubuntu 계정을 사용함).
 
 ## Airflow Python Module Installation
 
 #### 먼저 우분투의 소프트웨어 관리 툴인 apt-get을 업데이트하고 파이썬 3.0 pip을 설치한다.
 
+원래는 apt-get update 이후에 python3-pip을 설치하면 되는데 pyopenssl 관련 충돌이 있어서 이를 먼저 해결하고 python3-pip을 
+
 ```
-sudo apt-get update
+sudo apt-get update 
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python3 get-pip.py
+pip3 install pyopenssl --upgrade
 sudo apt-get install -y python3-pip
 ```
 
 #### 다음으로 Airflow 2.0을 설치하고 필요 기타 모듈을 설치한다
 
 ```
-sudo apt-get install -y postgresql-server-dev-all
-sudo apt-get install -y libmysqlclient-dev
-sudo pip3 install numpy
-sudo pip3 install pandas
-sudo pip3 install apache-airflow==2.2.5
-sudo pip3 install apache-airflow-providers-postgres==2.2.0
-sudo pip3 install apache-airflow-providers-mysql==2.2.0
-sudo pip3 install apache-airflow-providers-amazon==2.3.0
-sudo pip3 install apache.airflow.providers.slack
-sudo pip3 install apache.airflow.providers.google
-sudo pip3 install SQLAlchemy==1.3.23
+sudo pip3 install --ignore-installed "apache-airflow[celery]==2.5.1" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-3.7.txt"
 sudo pip3 install oauth2client
 sudo pip3 install gspread
-sudo pip3 install typing_extensions
 ```
 
 ## airflow:airflow 계정 생성
@@ -198,6 +193,7 @@ sudo systemctl status airflow-scheduler
 이는 airflow계정에서 실행되어야 한다. password의 값을 적당히 다른 값으로 바꾼다
 
 ```
+sudo su airflow
 AIRFLOW_HOME=/var/lib/airflow airflow users  create --role Admin --username admin --email admin --firstname admin --lastname admin --password admin4321
 ```
 
@@ -212,23 +208,23 @@ AIRFLOW_HOME=/var/lib/airflow airflow users delete --username admin
 
 ## 이 Github repo를 클론해서 dags 폴더에 있는 DAG들을 /var/lib/airflow/dags로 복사
 
-keeyong/data-engineering-batch11 repository에 있는 dags 폴더의 내용을 /var/lib/airflow/dags로 복사한다. 
+keeyong/data-engineering-batch10 repository에 있는 dags 폴더의 내용을 /var/lib/airflow/dags로 복사한다. 
 
 ```
 sudo su airflow
 cd ~/
-git clone https://github.com/keeyong/data-engineering-batch11.git
-cp -r data-engineering-batch11/dags/* dags
+git clone https://github.com/keeyong/data-engineering-batch10.git
+cp -r data-engineering-batch10/dags/* dags
 ```
 
 ## 이 Github repo의 업데이트가 필요한 경우
 
 ```
 sudo su airflow
-cd ~/data-engineering-batch11
+cd ~/data-engineering-batch10
 git pull
 cd ..
-cp -r data-engineering-batch11/dags/* dags
+cp -r data-engineering-batch10/dags/* dags
 ```
 
 그리고나서 Airflow 웹서버를 다시 방문해보면 (이 설치 작업을 한 시점에 따라) DAG들이 몇개 보이고 일부 에러도 몇개 보일 수 있다. 이 에러들은 나중에 하나씩 해결한다.
