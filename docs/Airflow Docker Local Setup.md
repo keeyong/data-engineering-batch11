@@ -26,7 +26,7 @@ Though the image itself has command to download `pipenv` to be used in the conta
 For more information on `pipenv`, please refer to this [page](https://pipenv-fork.readthedocs.io/en/latest/basics.html).
 
 ### Spinning Up Local Airflow Services
-1. Download this repo and cd into the main folder (cd data-engineering-batchN). Change N in batchN accordingly
+1. Download this repo and cd into the main folder (cd data-engineering-batchN). Change N in batchN accordingly. For example, if you are in batch 11, N should be 11.
 ```
 git clone https://github.com/keeyong/data-engineering-batchN.git
 cd data-engineering-batchN
