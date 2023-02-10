@@ -23,6 +23,7 @@ sudo apt-get install -y python3-pip
 sudo pip3 install --ignore-installed "apache-airflow[celery]==2.5.1" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-3.7.txt"
 sudo pip3 install oauth2client
 sudo pip3 install gspread
+sudo pip3 install cryptography psycopg2-binary boto3 botocore
 ```
 
 ## airflow:airflow 계정 생성
