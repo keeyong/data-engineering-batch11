@@ -20,9 +20,11 @@ sudo apt-get install -y python3-pip
 #### 다음으로 Airflow 2.0을 설치하고 필요 기타 모듈을 설치한다
 
 ```
+sudo apt-get install -y libmysqlclient-dev
 sudo pip3 install --ignore-installed "apache-airflow[celery]==2.5.1" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.5.1/constraints-3.7.txt"
 sudo pip3 install --ignore-installed "apache-airflow-providers-postgres"
 sudo pip3 install --ignore-installed "apache-airflow-providers-amazon"
+sudo pip3 install --ignore-installed "apache-airflow-providers-mysql"
 sudo pip3 install oauth2client
 sudo pip3 install gspread
 sudo pip3 install cryptography psycopg2-binary boto3 botocore
