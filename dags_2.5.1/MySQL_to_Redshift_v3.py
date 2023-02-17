@@ -51,7 +51,7 @@ s3_to_redshift_nps = S3ToRedshiftOperator(
     copy_options=['csv', "IGNOREHEADER 1"],
     redshift_conn_id = "redshift_dev_db",
     method = "UPSERT",
-    upsert_keys = ["created_at"],
+    upsert_keys = ["id", "created_at"],
     dag = dag
 )
 
