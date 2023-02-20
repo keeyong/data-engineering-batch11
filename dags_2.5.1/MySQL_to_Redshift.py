@@ -38,6 +38,7 @@ mysql_to_s3_nps = SqlToS3Operator(
     sql_conn_id = "mysql_conn_id",
     aws_conn_id = "aws_conn_id",
     verify = False,
+    pd_kwargs={"index": False, "header": False},    
     dag = dag
 )
 
